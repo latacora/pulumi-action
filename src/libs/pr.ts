@@ -44,7 +44,7 @@ export async function handlePullRequestMessage(
 
   try {
     if (editCommentOnPr) {
-      core.info(`Searching for an existing comment that starts with \`${heading}\`.`);
+      core.debug(`Searching for an existing comment that starts with \`${heading}\`.`);
 
       const { data: comments } = await octokit.rest.issues.listComments({
         ...repo,
@@ -56,7 +56,7 @@ export async function handlePullRequestMessage(
 
       // If comment exists, update it.
       if (comment) {
-        core.info(`Found existing comment to update with id ${comment.id}.`);
+        core.debug(`Found existing comment to update with id ${comment.id}.`);
 
         await octokit.rest.issues.updateComment({
           ...repo,
@@ -65,7 +65,7 @@ export async function handlePullRequestMessage(
         });
         return;
       } else {
-        core.info("No existing comment found; creating new comment.")
+        core.debug("No existing comment found; creating new comment.")
       }
     }
   } catch {
